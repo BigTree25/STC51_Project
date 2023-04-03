@@ -1,0 +1,70 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              02/20/2023 00:07:07 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: E:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "Key.h"
+   3          #include "Nixie.h"
+   4          #include "Timer1.h"
+   5          
+   6          sbit Motor=P1^0;
+   7          
+   8          unsigned char T1count,compare;
+   9          unsigned char KeyNum,speed=0;
+  10          
+  11          void main()
+  12          {
+  13   1        Timer1_Init();
+  14   1        while(1)
+  15   1        {
+  16   2          KeyNum=Key();
+  17   2          if(KeyNum==1)
+  18   2          {
+  19   3            speed++;
+  20   3            speed%=5;
+  21   3            Nixie(1,speed);
+  22   3          }
+  23   2          if(speed==0){compare=0;}
+  24   2          if(speed==1){compare=30;}
+  25   2          if(speed==2){compare=55;}
+  26   2          if(speed==3){compare=80;}
+  27   2          if(speed==4){compare=100;}
+  28   2        }
+  29   1      }
+  30          
+  31          void Timer1_Routine() interrupt 3
+  32          {
+  33   1        TL1 = 0xA4;       //设置定时初始值
+  34   1        TH1 = 0xFF;       //设置定时初始值
+  35   1        T1count++;
+  36   1        T1count%=100;
+  37   1        if(T1count<compare)
+  38   1        {
+  39   2          Motor=1;
+  40   2        }else
+  41   1        {
+  42   2          Motor=0;
+  43   2        }
+  44   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    117    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.60.7.0   MAIN                                                              02/20/2023 00:07:07 PAGE 2   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,65 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              02/01/2023 21:37:44 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: E:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "Delay.h"
+   3          
+   4          char a=0x00;
+   5          void main()
+   6          {
+   7   1        while(1)
+   8   1        {
+   9   2          if(P3_1==0)
+  10   2          {
+  11   3            P2=~a;
+  12   3            Delay(20);
+  13   3            while(P3_1==0);
+  14   3            Delay(20);
+  15   3            if(a==0xFF)
+  16   3            {
+  17   4              a=0x00;
+  18   4            }else
+  19   3            {
+  20   4              a=a+1;//按下k1加1
+  21   4            }
+  22   3            P2=~a;
+  23   3          }
+  24   2          if(P3_0==0)
+  25   2          {
+  26   3            P2=~a;
+  27   3            Delay(20);
+  28   3            while(P3_0==0);
+  29   3            Delay(20);
+  30   3            if(a==0x00)
+  31   3            {
+  32   4              a=0xFF;
+  33   4            }else
+  34   3            {
+  35   4              a=a-1;//按下k2减1
+  36   4            }
+  37   3            P2=~a;
+  38   3          }
+  39   2        }
+  40   1      }
+  41          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     83    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,114 @@
+C51 COMPILER V9.60.7.0   I2C                                                               02/15/2023 16:26:11 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE I2C
+OBJECT MODULE PLACED IN .\Objects\I2C.obj
+COMPILER INVOKED BY: E:\Keil_v5\C51\BIN\C51.EXE I2C.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\I2C.l
+                    -st) TABS(2) OBJECT(.\Objects\I2C.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          sbit I2C_SCL=P2^1;
+   4          sbit I2C_SDA=P2^0;
+   5          
+   6          /**
+   7            * @brief  I2C开始
+   8            * @param  无
+   9            * @retval 无
+  10            */
+  11          void I2C_Start()
+  12          {
+  13   1        I2C_SDA=1;
+  14   1        I2C_SCL=1;
+  15   1        I2C_SDA=0;
+  16   1        I2C_SCL=0;
+  17   1        
+  18   1      }
+  19          /**
+  20            * @brief  I2C结束
+  21            * @param  无
+  22            * @retval 无
+  23            */
+  24          void I2C_Stop()
+  25          {
+  26   1        I2C_SDA=0;
+  27   1        I2C_SCL=1;
+  28   1        I2C_SDA=1;
+  29   1        
+  30   1      }
+  31          /**
+  32            * @brief  I2C发送一个字节数据
+  33            * @param  Byte 发送的字节数据 范围：0~255
+  34            * @retval 无
+  35            */
+  36          void I2C_SendByte(unsigned char Byte)
+  37          {
+  38   1        unsigned char i;
+  39   1        for(i=0;i<8;i++)
+  40   1        {
+  41   2          I2C_SDA=Byte&(0x80>>i);
+  42   2          I2C_SCL=1;
+  43   2          I2C_SCL=0;
+  44   2        }
+  45   1      }
+  46          /**
+  47            * @brief  I2C接受一个字节数据
+  48            * @param  无
+  49            * @retval Byte 接受的字节数据 范围：0~255
+  50            */
+  51          unsigned char I2C_ReceiveByte()
+  52          {
+  53   1        unsigned char i,Byte=0x00;
+  54   1        for(i=0;i<8;i++)
+C51 COMPILER V9.60.7.0   I2C                                                               02/15/2023 16:26:11 PAGE 2   
+
+  55   1        {
+  56   2          I2C_SDA=1;  
+  57   2          I2C_SCL=1;
+  58   2          if(I2C_SDA){Byte|=(0x80>>i);}
+  59   2          I2C_SCL=0;
+  60   2          
+  61   2        }
+  62   1        return Byte;
+  63   1      }
+  64          /**
+  65            * @brief  I2C发送应答
+  66            * @param  AckBit 发送应答位，0为应答，1为非应答
+  67            * @retval 无
+  68            */
+  69          void I2C_SendAck(unsigned char AckBit)
+  70          {
+  71   1        I2C_SDA=AckBit;
+  72   1        I2C_SCL=1;
+  73   1        I2C_SCL=0;
+  74   1      }
+  75          /**
+  76            * @brief  I2C接受应答
+  77            * @param  无
+  78            * @retval AckBit 接收应答位，0为应答，1为非应答
+  79            */
+  80          unsigned char I2C_ReceiveAck()
+  81          {
+  82   1        unsigned char AckBit;
+  83   1        I2C_SDA=1;
+  84   1        I2C_SCL=1;
+  85   1        AckBit=I2C_SDA;
+  86   1        I2C_SCL=0;
+  87   1        return AckBit;
+  88   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    109    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

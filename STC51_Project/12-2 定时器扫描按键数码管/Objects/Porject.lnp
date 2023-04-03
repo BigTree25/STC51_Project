@@ -1,0 +1,9 @@
+".\Objects\main.obj",
+".\Objects\Delay.obj",
+".\Objects\Key.obj",
+".\Objects\Nixie.obj",
+".\Objects\Timer0.obj",
+".\Objects\AT24C02.obj",
+".\Objects\I2C.obj" 
+TO ".\Objects\Porject" 
+PRINT(".\Listings\Porject.m51") RAMSIZE(256) 

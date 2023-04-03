@@ -1,0 +1,71 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              02/01/2023 17:31:20 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: E:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "Delay.h"
+   3          
+   4          void main()
+   5          {
+   6   1      //  P2=0xFD;//1111 1101
+   7   1      //    Delay(500);
+   8   1      //    
+   9   1      //    P2=0xFB;//1111 1011
+  10   1      //    Delay(500);
+  11   1      //    
+  12   1      //    P2=0xF7;//1111 0111
+  13   1      //    Delay(500);
+  14   1      //    
+  15   1      //    P2=0xEF;//1110 1111
+  16   1      //    Delay(500);
+  17   1      //    
+  18   1      //    P2=0xDF;//1101 1111
+  19   1      //    Delay(500);
+  20   1      //    
+  21   1      //    P2=0xBF;//1011 1111
+  22   1      //    Delay(500);
+  23   1      //    
+  24   1      //    P2=0x7F;//0111 1111
+  25   1      //    Delay(500);
+  26   1        while(1)
+  27   1        {
+  28   2          char i=0;
+  29   2          char j=0x01;
+  30   2          P2=~j;//1111 1110
+  31   2          for(i=0;i<=8;i++)
+  32   2          {
+  33   3            if(i==8)
+  34   3            {
+  35   4              j=0x01;
+  36   4              P2=~j;
+  37   4              Delay(500);
+  38   4              i=i-8;
+  39   4            } 
+  40   3            j=j<<1;
+  41   3            P2=~j;
+  42   3            Delay(500);
+  43   3          }
+  44   2        }
+  45   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     65    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   MAIN                                                              02/01/2023 17:31:20 PAGE 2   
+
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
